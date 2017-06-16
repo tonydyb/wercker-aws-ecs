@@ -54,31 +54,12 @@ try:
 
     if serviceMode:
 
-        # Step: Downscale ECS Service if necessary
-        if original_running_count >= args.minimum_running_tasks:
-            h1("Step: Downscale ECS Service")
-            response = ecs.downscale_service(cluster=args.cluster_name, service=args.service_name)
-            downscale_running_count = (response.get('services')[0]).get('runningCount')
-            success("Downscaling service '%s' (from %d to %d tasks) succeeded"
-                    % (args.service_name, original_running_count, downscale_running_count))
-            delta = 1
-        else:
-            h1("Step 5: Downscale ECS Service")
-            success("Downscaling service is not necessary (not enough tasks are running)")
-            delta = args.minimum_running_tasks - original_running_count
-
         # Step: Update ECS Service
         h1("Step: Update ECS Service")
         response = ecs.update_service(cluster=args.cluster_name, service=args.service_name, taskDefinition=task_definition_arn)
         running_count = (response.get('services')[0]).get('runningCount')
         success("Updating service '%s' with task definition '%s' succeeded" % (args.service_name, task_definition_arn))
 
-        # Step: Upscale ECS Service
-        h1("Step: Upscale ECS Service")
-        response = ecs.upscale_service(cluster=args.cluster_name, service=args.service_name, delta=delta)
-        upscale_running_count = (response.get('services')[0]).get('runningCount')
-        success("Upscaling service '%s' (from %d to %d tasks) succeeded"
-                % (args.service_name, running_count, upscale_running_count))
     else:
         # Step: run task
         h1("Step: Run task")

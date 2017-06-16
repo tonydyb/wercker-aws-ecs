@@ -53,38 +53,16 @@ The following configuration allows to setup this step :
 
 ## In service mode:
 
-#### Step [Downscale ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_UpdateService.html)
-
-This step downscale the service in order to deploy the new revision.
-
-See this [thread](https://forums.aws.amazon.com/thread.jspa?threadID=179271) for explanation :
- 
- 
-> The service scheduler will always scale up at least 1 new container before shutting down old containers. 
-This means on an update, if your current service uses all resources in your cluster you may actually need to scale your service to N-1 where N is your current running task count for that service.
-For example, if you have 5 container instances and 5 tasks running bound to host port 80, in order to perform a rolling update you'll need to set the desired count on the service to 4. 
-The scheduler will recognize that it can stop 1 container and still meet your needs. After stopping 1, the free space will be used to start another. 
-You can think of desired count as also the minimum count for now and the scheduler won't remove tasks below that minimum which is likely why you see resources not found.
-
-This step is run only if the number of tasks running is greater than the following configuration :
-  
-  * `minimum-running-tasks` (optional default 2): The minimum number of running tasks expected
-
-
 #### Step [Update ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_UpdateService.html)
 
 This step update the service with the new revision.
-
-#### Step [Upscale ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_UpdateService.html)
-
-This step upscale the service to the initial number of tasks.
 
 ## In task only mode:
 
 #### Step [Run task](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html)
 
 This step run a task on a single node and wait for its completion. The step fail if the task can't be run or if its command exit code is different from 0.
- 
+
 ## Example
 
 The following example deploy an `hello` service on ECS :

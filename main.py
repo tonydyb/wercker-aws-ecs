@@ -23,7 +23,6 @@ parser.add_argument('--task-definition-name', dest='task_definition_name', requi
 parser.add_argument('--task-definition-file', dest='task_definition_file', required=True)
 parser.add_argument('--task-definition-volumes-file', dest='task_definition_volumes_file', required=False)
 parser.add_argument('--service-name', dest='service_name', required=False)
-parser.add_argument('--minimum-running-tasks', type=int, dest='minimum_running_tasks', default=1, required=False)
 args = parser.parse_args()
 
 try:

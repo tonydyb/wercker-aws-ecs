@@ -33,13 +33,6 @@ The following configuration allows to setup this step :
 
 * `cluster-name` (required): The name of the cluster to deploy the service
 
-#### Step [Checking ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeServices.html) (Skipped in task only mode)
-
-This step check a previously created ECS service exists. The service MUST be created before using this step.
-
-The following configuration allows to setup this step :
-
-* `service-name` (optional): The name of the service to deploy
 
 #### Step [Create New Task Definition ](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RegisterTaskDefinition.html)
 
@@ -50,8 +43,15 @@ The following configuration allows to setup this step :
 * `task-definition-name` (required): The name of the task definition
 * `task-definition-file` (required): The file containing the task definition
 
-
 ## In service mode:
+
+#### Step [Checking ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeServices.html) (Skipped in task only mode)
+
+This step check a previously created ECS service exists. The service MUST be created before using this step.
+
+The following configuration allows to setup this step :
+
+* `service-name` (optional): The name of the service to deploy
 
 #### Step [Update ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_UpdateService.html)
 

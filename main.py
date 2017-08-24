@@ -39,13 +39,6 @@ try:
     ecs.describe_cluster(cluster=args.cluster_name)
     success("Checking cluster '%s' succeeded" % args.cluster_name)
 
-    # Step: Check ECS Service
-    if serviceMode:
-        h1("Step: Check ECS Service")
-        response = ecs.describe_service(cluster=args.cluster_name, service=args.service_name)
-        original_running_count = (response.get('services')[0]).get('runningCount')
-        success("Checking service '%s' succeeded (%d tasks running)" % (args.service_name, original_running_count))
-
     # Step: Register New Task Definition
     h1("Step: Register New Task Definition")
     response = ecs.register_task_definition(family=args.task_definition_name, file=args.task_definition_file, volumes=args.task_definition_volumes_file)
@@ -53,6 +46,11 @@ try:
     success("Registering task definition '%s' succeeded" % task_definition_arn)
 
     if serviceMode:
+        # Step: Check ECS Service
+        h1("Step: Check ECS Service")
+        response = ecs.describe_service(cluster=args.cluster_name, service=args.service_name)
+        original_running_count = (response.get('services')[0]).get('runningCount')
+        success("Checking service '%s' succeeded (%d tasks running)" % (args.service_name, original_running_count))
 
         # Step: Update ECS Service
         h1("Step: Update ECS Service")

@@ -1,4 +1,4 @@
-Wercker step for AWS ECS
+aaWercker step for AWS ECS
 =======================
 
 This wercker step allows to deploy Docker containers with [AWS ECS](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_GetStarted.html) service or run a task outside of a service.

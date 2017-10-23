@@ -55,11 +55,6 @@ if [ -z "$WERCKER_AWS_ECS_SECRET" ]; then
   exit 1
 fi
 
-if [ -z "$WERCKER_AWS_ECS_CLUSTER_NAME" ]; then
-  error "Please set the 'cluster-name' variable"
-  exit 1
-fi
-
 if [ -z "$WERCKER_AWS_ECS_TASK_DEFINITION_NAME" ]; then
   error "Please set the 'task-definition-name' variable"
   exit 1
@@ -71,7 +66,15 @@ if [ -z "$WERCKER_AWS_ECS_TASK_DEFINITION_FILE" ]; then
 fi
 
 
-if [ -z "$WERCKER_AWS_ECS_SERVICE_NAME" ]; then
+if [ -z "$WERCKER_AWS_ECS_SERVICE_NAME" ] && [ -z "$WERCKER_AWS_ECS_CLUSTER_NAME" ]; then
+  python "$WERCKER_STEP_ROOT/main.py" \
+    --key "$WERCKER_AWS_ECS_KEY" \
+    --secret "$WERCKER_AWS_ECS_SECRET" \
+    --region "${WERCKER_AWS_ECS_REGION:-us-east-1}" \
+    --task-definition-name "$WERCKER_AWS_ECS_TASK_DEFINITION_NAME" \
+    --task-definition-file "$WERCKER_AWS_ECS_TASK_DEFINITION_FILE" \
+    --task-definition-volumes-file "$WERCKER_AWS_ECS_TASK_DEFINITION_VOLUMES_FILE"
+elif [ -z "$WERCKER_AWS_ECS_SERVICE_NAME" ]; then
   python "$WERCKER_STEP_ROOT/main.py" \
     --key "$WERCKER_AWS_ECS_KEY" \
     --secret "$WERCKER_AWS_ECS_SECRET" \

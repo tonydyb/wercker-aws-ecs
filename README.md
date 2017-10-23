@@ -25,14 +25,6 @@ The following configuration allows to setup this step :
 * `secret` (required): AWS Secret Access Key
 * `region` (optional): Default region name
 
-#### Step [Checking ECS Cluster](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeClusters.html)
-
-This step check a previously created ECS cluster exists.
-
-The following configuration allows to setup this step :
-
-* `cluster-name` (required): The name of the cluster to deploy the service
-
 
 #### Step [Create New Task Definition ](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RegisterTaskDefinition.html)
 
@@ -44,6 +36,14 @@ The following configuration allows to setup this step :
 * `task-definition-file` (required): The file containing the task definition
 
 ## In service mode:
+
+#### Step [Checking ECS Cluster](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeClusters.html)
+
+This step check a previously created ECS cluster exists.
+
+The following configuration allows to setup this step :
+
+* `cluster-name` (optional): The name of the cluster to deploy the service
 
 #### Step [Checking ECS Service](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeServices.html) (Skipped in task only mode)
 
@@ -70,6 +70,11 @@ The following example deploy an `hello` service on ECS :
 ```
 deploy:
   steps:
+    - ton-katsu/aws-ecs:
+        key: aws_access_key_id
+        secret: aws_access_secret_id
+        task-definition-name: hello-migrate-db
+        task-definition-file: /app/hello-migrate-db-task-definition.json
     - ton-katsu/aws-ecs:
         key: aws_access_key_id
         secret: aws_access_secret_id

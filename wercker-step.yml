@@ -17,9 +17,6 @@ properties:
     required: false
 
   # Step 2: Defining task definition
-  cluster-name:
-    type: string
-    required: true
   task-definition-name:
     type: string
     required: true
@@ -31,6 +28,9 @@ properties:
     required: false
 
   # Step 3: Defining service (optional)
+  cluster-name:
+    type: string
+    required: false
   service-name:
     type: string
     required: true

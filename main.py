@@ -40,6 +40,9 @@ try:
     task_definition_arn = response.get('taskDefinition').get('taskDefinitionArn')
     success("Registering task definition '%s' succeeded" % task_definition_arn)
 
+    if not args.args.cluster_name:
+        sys.exit(0)
+
     if serviceMode:
         # Step: Check ECS cluster
         h1("Step: Check ECS cluster")

@@ -27,8 +27,6 @@ args = parser.parse_args()
 
 try:
 
-    serviceMode = args.service_name is not None
-
     # Step: Configuring AWS
     h1("Step: Configuring AWS")
     ecs = ECSService(access_key=args.key, secret_key=args.secret, region=args.region)
@@ -40,8 +38,10 @@ try:
     task_definition_arn = response.get('taskDefinition').get('taskDefinitionArn')
     success("Registering task definition '%s' succeeded" % task_definition_arn)
 
-    if not args.args.cluster_name:
+    if not args.cluster_name:
         sys.exit(0)
+
+    serviceMode = args.service_name is not None
 
     if serviceMode:
         # Step: Check ECS cluster

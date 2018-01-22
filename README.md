@@ -70,18 +70,18 @@ The following example deploy an `hello` service on ECS :
 ```
 deploy:
   steps:
-    - ton-katsu/aws-ecs:
+    - tonydyb/wercker-aws-ecs:
         key: aws_access_key_id
         secret: aws_access_secret_id
         task-definition-name: hello-migrate-db
         task-definition-file: /app/hello-migrate-db-task-definition.json
-    - ton-katsu/aws-ecs:
+    - tonydyb/wercker-aws-ecs:
         key: aws_access_key_id
         secret: aws_access_secret_id
         cluster-name: staging
         task-definition-name: hello-migrate-db
         task-definition-file: /app/hello-migrate-db-task-definition.json
-    - ton-katsu/aws-ecs:
+    - tonydyb/wercker-aws-ecs:
         key: aws_access_key_id
         secret: aws_access_secret_id
         cluster-name: staging
